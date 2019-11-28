@@ -75,7 +75,11 @@ export default class MyUsefulLinksWebPart extends BaseClientSideWebPart<IMyUsefu
   public _getListData(listName:string): Promise<any> {
     let query = '';
     query += '$filter=AuthorId eq ' + this.context.pageContext.legacyPageContext.userId +'&';
-    query += '$orderby=Position asc';
+    if(listName == 'My Useful Links'){
+      query += '$orderby=Id asc';
+    } else {
+      query += '$orderby=Position asc';
+    }
     return this.context.spHttpClient.get(this.context.pageContext.web.absoluteUrl + `/_api/web/Lists/GetByTitle('`+listName+`')/Items?` + query, SPHttpClient.configurations.v1)
       .then((response: SPHttpClientResponse) => {
         return response.json();
