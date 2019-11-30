@@ -70,10 +70,10 @@ export default class MyUsefulLinks extends React.Component<IMyUsefulLinksProps, 
     this.openPane();
   }
   public DeleteLinkButton = (item) => {
-    ReactDom.render( <div className={ styles.usefulLinks }><Spinner className={styles.spinner} label="Please wait..." size={SpinnerSize.large} ariaLive="assertive" labelPosition="right" /></div>, this.props.tsThis.domElement);
-    let del = confirm('Delete this link?');
+    let del = confirm('Do you want to delete this link?');
     if(del){
       console.info('Delete id:'+item.Id);
+      ReactDom.render( <div className={ styles.usefulLinks }><Spinner className={styles.spinner} label="Please wait..." size={SpinnerSize.large} ariaLive="assertive" labelPosition="right" /></div>, this.props.tsThis.domElement);
       sp.web.lists.getByTitle('My Useful Links').items.getById(item.Id).recycle().then(_ => {this.props.render(this.props.tsThis);});
     }
   }
@@ -129,7 +129,7 @@ export default class MyUsefulLinks extends React.Component<IMyUsefulLinksProps, 
           className={styles.panel}
         >
             <TextField label="Title" onChange={(event) => this.titleChange(event)} value={this.state.title} required />
-            <TextField label="Url" onChange={(event) => this.urlChange(event)} value={this.state.link} required />
+            <TextField label="URL" onChange={(event) => this.urlChange(event)} value={this.state.link} required />
             <div className={styles.panelToolbar}>
               <PrimaryButton text="Save" onClick={this.AddLink} allowDisabledFocus />
               <span> </span>
